@@ -26,8 +26,8 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
     next();
   } else {
     // console.log(req.headers);
-    // res.send('nao permitido');
-    res.send({req: req.headers});
+    res.send('Acesso não permitido.');
+    // res.send({req: req.headers});
   }
 };
 // app.use(cors({origin: "http://acd", credentials: true,}))
