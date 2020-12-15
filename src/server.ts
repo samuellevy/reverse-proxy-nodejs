@@ -34,7 +34,7 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
 
 app.use(verifySegAuth);
 
-app.use('/', createProxyMiddleware({ target: 'http://10.114.4.106:5601/kibana/', changeOrigin: true }), (req,res)=>{
+app.use('/', createProxyMiddleware({ target: 'http://10.114.4.106:5601/', changeOrigin: true }), (req,res)=>{
   res.send('alo');
 });
 
