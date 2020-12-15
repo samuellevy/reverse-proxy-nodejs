@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+    app:
+        container_name: dm-proxy-kibana
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - '.:/app'
+            - '/app/node_modules'
+        ports:
+            - '3333:3333'
+        environment:
+            - NODE_ENV=development
