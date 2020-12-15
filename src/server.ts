@@ -26,15 +26,15 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
     next();
   } else {
     // console.log(req.headers);
-    res.send('nao permitido');
-    // res.send({req: req.headers});
+    // res.send('nao permitido');
+    res.send({req: req.headers});
   }
 };
 // app.use(cors({origin: "http://acd", credentials: true,}))
 
 app.use(verifySegAuth);
 
-app.use('/', createProxyMiddleware({ target: 'http://127.0.0.1:5601', changeOrigin: true }), (req,res)=>{
+app.use('/', createProxyMiddleware({ target: 'http://10.114.4.106:5601/kibana/', changeOrigin: true }), (req,res)=>{
   res.send('alo');
 });
 
