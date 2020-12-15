@@ -17,7 +17,7 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
 
   if(req.headers.referer){
     // se o referer for do DASHBOARD ou do PRÓPRIO PROXY
-    if(req.headers.referer==='http://localhost:3000/' || req.headers.referer==='http://localhost:3333/app/kibana'){
+    if(req.headers.referer==='http://som.dev-hsc.globo.com:3001/' || req.headers.referer==='http://som.dev-hsc.globo.com:3333/app/kibana'){
       logged = true;
     }
   }
