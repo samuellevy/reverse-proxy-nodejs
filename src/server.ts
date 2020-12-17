@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express, {NextFunction, Request, Response} from 'express';
 import axios from 'axios';
 import httpProxy from 'http-proxy';
@@ -6,7 +7,7 @@ import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-pro
 import cors from 'cors';
 
 const app = express();
-
+const {DM_PROXY_SELF, DM_PROXY_REFERER, DM_PROXY_TARGET, DM_PROXY_AUTH} = process.env;
 
 
 /** express proxy */
@@ -17,7 +18,7 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
 
   if(req.headers.referer){
     // se o referer for do DASHBOARD ou do PRÓPRIO PROXY
-    if(req.headers.referer==='http://som.dev-hsc.globo.com:3001/' || req.headers.referer==='http://som.dev-hsc.globo.com:3333/app/kibana'){
+    if(req.headers.referer===`${DM_PROXY_REFERER}/` || req.headers.referer===`${DM_PROXY_SELF}/app/kibana`){
       logged = true;
     }
   }
@@ -30,11 +31,16 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
     // res.send({req: req.headers});
   }
 };
+
+app.get('/info', (req,res)=>{
+  return res.send({ message: DM_PROXY_SELF, DM_PROXY_SELF, DM_PROXY_REFERER, DM_PROXY_TARGET, DM_PROXY_AUTH});
+});
 // app.use(cors({origin: "http://acd", credentials: true,}))
+if(DM_PROXY_AUTH=='on'){
+  app.use(verifySegAuth);
+}
 
-app.use(verifySegAuth);
-
-app.use('/', createProxyMiddleware({ target: 'http://10.114.4.106:5601/', changeOrigin: true }), (req,res)=>{
+app.use('/', createProxyMiddleware({ target: `${DM_PROXY_TARGET}/`, changeOrigin: true }), (req,res)=>{
   res.send('alo');
 });
 
