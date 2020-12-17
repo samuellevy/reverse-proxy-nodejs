@@ -32,6 +32,11 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
   }
 };
 
+
+app.use('/proxy/dashboard', createProxyMiddleware({ target: 'http://10.114.4.106:3001', changeOrigin: true }), (req,res)=>{
+  res.send('alo');
+});
+
 app.get('/proxy/info', (req,res)=>{
   return res.send({ message: 'service ok', DM_PROXY_SELF, DM_PROXY_REFERER, DM_PROXY_TARGET, DM_PROXY_AUTH});
 });
