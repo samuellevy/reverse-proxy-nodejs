@@ -30,13 +30,14 @@ var getAuthStatus = function (req: Request, res: Response, next: NextFunction) {
   }
 };
 
-app.use('/', createProxyMiddleware({ target: `https://bff-siscob-hml.integracao.brmalls.com.br/`, changeOrigin: true }), (req,res)=>{
-  res.send('alo');
-});
-
 
 app.get('/info', (req,res)=>{
   return res.send({ message: 'service ok'});
+});
+
+
+app.use('/', createProxyMiddleware({ target: `https://bff-siscob-hml.integracao.brmalls.com.br/`, changeOrigin: true }), (req,res)=>{
+  res.send('alo');
 });
 
 if(DM_PROXY_AUTH=='on'){
