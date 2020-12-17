@@ -33,7 +33,7 @@ var verifySegAuth = function (req: Request, res: Response, next: NextFunction) {
 };
 
 app.get('/info', (req,res)=>{
-  return res.send({ message: DM_PROXY_SELF, DM_PROXY_SELF, DM_PROXY_REFERER, DM_PROXY_TARGET, DM_PROXY_AUTH});
+  return res.send({ message: process.env, DM_PROXY_SELF, DM_PROXY_REFERER, DM_PROXY_TARGET, DM_PROXY_AUTH});
 });
 // app.use(cors({origin: "http://acd", credentials: true,}))
 if(DM_PROXY_AUTH=='on'){
