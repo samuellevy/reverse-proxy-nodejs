@@ -40,6 +40,10 @@ app.use('/', createProxyMiddleware({ target: `https://bff-siscob-hml.integracao.
   res.send('alo');
 });
 
+app.use('/siscob', createProxyMiddleware({ target: `https://siscob-hml.integracao.brmalls.com.br/`, changeOrigin: true }), (req,res)=>{
+  res.send('alo');
+});
+
 if(DM_PROXY_AUTH=='on'){
   app.use(getAuthStatus);
 }
